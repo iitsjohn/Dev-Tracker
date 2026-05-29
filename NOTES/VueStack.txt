@@ -1,0 +1,198 @@
+In Vue, the answer depends on whether you are using:
+
+- plain Vue + Vite
+- Vue Router
+- Nuxt
+
+Since you mentioned a Vue project earlier, I’m assuming you’re using **Vue 3 + Vite**.
+
+Here’s the standard stack people use:
+
+---
+
+# 1. SEO / Meta Tags
+
+For Vue 3 + Vite, the most common solution is:
+
+## Use `@unhead/vue`
+
+Install:
+
+```bash id="vch8u9"
+npm install @unhead/vue
+```
+
+Setup in `main.ts`:
+
+```ts id="87vwb4"
+import { createApp } from "vue";
+import { createHead } from "@unhead/vue";
+import App from "./App.vue";
+
+const app = createApp(App);
+
+app.use(createHead());
+
+app.mount("#app");
+```
+
+Then inside a page/component:
+
+```vue id="3kn2jv"
+<script setup lang="ts">
+import { useHead } from "@unhead/vue";
+
+useHead({
+  title: "Dashboard",
+  meta: [
+    {
+      name: "description",
+      content: "Project dashboard",
+    },
+  ],
+});
+</script>
+```
+
+This is the modern Vue 3 solution.
+
+---
+
+# 2. Page Meta
+
+Same thing — use `useHead()`.
+
+Example:
+
+```vue id="5ycm8y"
+<script setup lang="ts">
+useHead({
+  title: "Projects",
+  meta: [
+    {
+      property: "og:title",
+      content: "Projects Page",
+    },
+  ],
+});
+</script>
+```
+
+You can dynamically change:
+
+- title
+- description
+- Open Graph tags
+- Twitter cards
+- canonical URLs
+
+---
+
+# 3. Middleware / Route Guards
+
+Vue itself doesn’t have middleware like Laravel or Nuxt.
+
+Instead, Vue Router uses **navigation guards**.
+
+Install router:
+
+```bash id="eq34qm"
+npm install vue-router
+```
+
+Example:
+
+```ts id="qf0ny4"
+// router/index.ts
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = true;
+
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next("/login");
+  } else {
+    next();
+  }
+});
+```
+
+Then in routes:
+
+```ts id="88r0xt"
+{
+  path: '/dashboard',
+  component: DashboardView,
+  meta: {
+    requiresAuth: true
+  }
+}
+```
+
+This acts like middleware.
+
+---
+
+# Common Vue Stack
+
+Most Vue 3 apps use:
+
+| Purpose          | Package                                |
+| ---------------- | -------------------------------------- |
+| Routing          | `vue-router`                           |
+| SEO/meta         | `@unhead/vue`                          |
+| State management | `pinia`                                |
+| API requests     | `axios`                                |
+| Forms/validation | `vee-validate` + `zod`, Regle          |
+| UI library       | `PrimeVue`, `shadcn-vue`, or `Vuetify` |
+
+---
+
+# If You Want Laravel-like Features
+
+If you want:
+
+- file-based routing
+- built-in SEO
+- middleware
+- layouts
+- SSR
+
+then use:
+
+Nuxt
+
+Nuxt is basically:
+
+> “Next.js but for Vue”
+
+It gives:
+
+- middleware
+- SEO
+- page meta
+- server rendering
+- route generation
+- layouts
+- API routes
+
+out of the box.
+
+---
+
+# Recommendation
+
+For learning Vue properly:
+
+✅ Start with:
+
+- Vue 3
+- Vite
+- Vue Router
+- Pinia
+- Unhead
+
+Then later learn:
+
+✅ Nuxt
+
+once you understand core Vue fundamentals.

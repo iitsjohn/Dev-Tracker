@@ -1,35 +1,52 @@
-@import './base.css';
+@import "./base.css";
+@import "tailwindcss";
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+  width: 100%;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+@theme {
+  /*Fonts */
+  /* --font-inter:
+    "Inter var", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+  --font-tnr: "Times New Roman", Times, serif;
+  --font-geog: "GeogrotSharp TRIAL Regular", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+  --font-oswald: "Oswald", sans-serif; */
+
+  /* colors */
+  --color-primary-100: #2563eb;
+  --color-004ac6: #004ac6;
+  --color-f8fafc: #f8fafc;
+  --color-c3c6d7: #c3c6d7;
+  --color-505f76: #505f76;
+  --color-737686: #737686;
+  --color-d0e1fb: #d0e1fb;
+  --color-191c1e: #191c1e;
+  --color-d0e1fb: #d0e1fb;
+  --color-434655: #434655;
+  --color-f7f9fb: #f7f9fb;
+  --color-505f76: #505f76;
+  --color-943700: #943700;
+  --color-737686: #737686;
+
+  /* breakpoints */
+  --breakpoint-3xl: 120rem;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  button {
+    @apply cursor-pointer;
   }
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+@layer components {
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+@layer utilities {
 }

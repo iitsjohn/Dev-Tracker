@@ -1,0 +1,446 @@
+TDD (Test-Driven Development) is a development approach where you write tests **before** writing the actual implementation code.
+
+The main purpose is not just “testing” — it’s about:
+
+- designing better code
+- preventing regressions
+- documenting behavior
+- improving confidence when refactoring
+- forcing smaller, focused functions/components
+
+The core TDD cycle is:
+
+1. **Red** → write a failing test
+2. **Green** → write the minimum code to make it pass
+3. **Refactor** → clean up the implementation while keeping tests passing
+
+---
+
+# What TDD is really for
+
+A lot of beginners think:
+
+> “TDD is to check if my code works.”
+
+That’s only part of it.
+
+The deeper purpose is:
+
+## 1. Designing maintainable code
+
+When you write tests first, you naturally create:
+
+- smaller functions
+- less coupling
+- clearer APIs
+- predictable behavior
+
+Badly designed code is usually hard to test.
+
+Example:
+
+```ts
+function calculateTotal(items) {
+  return items.reduce((sum, item) => sum + item.price, 0);
+}
+```
+
+Easy to test = good separation of logic.
+
+---
+
+## 2. Preventing regressions
+
+When you change code later, tests verify you didn’t break old functionality.
+
+Example:
+You add discount logic to checkout.
+
+Without tests:
+
+- old totals might silently break
+
+With tests:
+
+- failing tests immediately show what changed
+
+This becomes extremely important in:
+
+- Laravel backends
+- payment systems
+- APIs
+- CRM systems
+- checkout flows
+
+(especially the kind of integrations you work on)
+
+---
+
+## 3. Confidence during refactoring
+
+You can safely improve architecture because tests protect behavior.
+
+Example:
+You refactor:
+
+```php
+AuthorizeNetClient
+```
+
+into:
+
+- services
+- DTOs
+- pipelines
+- actions
+
+Tests ensure behavior remains identical.
+
+---
+
+## 4. Living documentation
+
+Tests explain expected behavior better than comments.
+
+Example:
+
+```ts
+it("applies 20% discount for premium users", () => {
+  expect(calculatePrice(100, true)).toBe(80);
+});
+```
+
+This instantly documents business logic.
+
+---
+
+# TDD vs Regular Testing
+
+## Regular Testing
+
+Usually:
+
+1. write code
+2. manually test
+3. maybe add tests later
+
+This is common.
+
+---
+
+## TDD
+
+Usually:
+
+1. write expected behavior
+2. run failing test
+3. implement feature
+4. refactor safely
+
+TDD is more disciplined and architecture-focused.
+
+---
+
+# Common use cases for TDD
+
+## Excellent for TDD
+
+These are ideal:
+
+### Business logic
+
+```ts
+calculateTax();
+calculateDiscount();
+validateCard();
+formatCurrency();
+```
+
+---
+
+### API/service layers
+
+Example:
+
+- payment gateways
+- CRL integrations
+- webhook validation
+- HMAC signatures
+
+These are perfect because:
+
+- inputs/outputs are predictable
+- easy assertions
+
+---
+
+### Utilities/helpers
+
+```ts
+slugify();
+groupBy();
+parseXml();
+```
+
+---
+
+### State management
+
+Vue stores:
+
+- Pinia
+- composables
+- reducers
+
+---
+
+### Validation logic
+
+Especially:
+
+- forms
+- checkout validation
+- schemas
+- permissions
+
+---
+
+# Harder / less useful for TDD
+
+## UI-heavy code
+
+Example:
+
+- animations
+- CSS behavior
+- visual alignment
+
+You can still test components, but TDD becomes less valuable.
+
+---
+
+## Rapid prototypes
+
+If you're experimenting quickly, strict TDD can slow you down.
+
+---
+
+## Tiny throwaway scripts
+
+Not worth the overhead.
+
+---
+
+# Vitest specifically
+
+Vitest is mainly used in:
+
+- Vue
+- Vite
+- TypeScript
+- frontend apps
+
+It provides:
+
+- unit testing
+- mocking
+- spies
+- coverage
+- component testing
+
+It’s similar to:
+
+- Jest
+- PHPUnit
+- PyTest
+
+but optimized for Vite ecosystems.
+
+---
+
+# Types of tests you'll encounter
+
+## 1. Unit Tests
+
+Test a single unit/function.
+
+Example:
+
+```ts
+expect(add(1, 2)).toBe(3);
+```
+
+Fast and isolated.
+
+This is where TDD shines most.
+
+---
+
+## 2. Integration Tests
+
+Test multiple pieces working together.
+
+Example:
+
+- API + database
+- Vue component + store
+
+---
+
+## 3. Component Tests
+
+Test Vue components.
+
+Example:
+
+- button click
+- emitted events
+- rendered text
+
+Often done using:
+
+- Vitest
+- Vue Test Utils
+
+---
+
+## 4. E2E Tests
+
+Full browser simulation.
+
+Tools:
+
+- Playwright
+- Cypress
+
+Tests:
+
+- login flow
+- checkout flow
+- user navigation
+
+These are slower and usually NOT strict TDD.
+
+---
+
+# Real-world example of TDD with Vitest
+
+Suppose you want:
+
+```ts
+formatCurrency(1000);
+```
+
+to return:
+
+```txt
+₱1,000.00
+```
+
+## Step 1 — Write failing test
+
+```ts
+import { describe, it, expect } from "vitest";
+import { formatCurrency } from "./currency";
+
+describe("formatCurrency", () => {
+  it("formats peso currency", () => {
+    expect(formatCurrency(1000)).toBe("₱1,000.00");
+  });
+});
+```
+
+Test fails because function doesn't exist.
+
+---
+
+## Step 2 — Make it pass
+
+```ts
+export function formatCurrency(amount: number) {
+  return `₱${amount.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+  })}`;
+}
+```
+
+---
+
+## Step 3 — Refactor
+
+Improve implementation safely because tests protect behavior.
+
+---
+
+# The biggest beginner mistake
+
+People test implementation details instead of behavior.
+
+Bad:
+
+```ts
+expect(wrapper.vm.internalArray.length).toBe(3);
+```
+
+Good:
+
+```ts
+expect(wrapper.text()).toContain("3 items");
+```
+
+Test:
+
+- outputs
+- behavior
+- contracts
+
+NOT internal implementation.
+
+---
+
+# When TDD becomes extremely valuable
+
+You’ll appreciate TDD more when:
+
+- codebase grows
+- multiple developers work together
+- refactoring becomes frequent
+- integrations become risky
+- bugs become expensive
+
+For your Laravel/payment/CRM integrations:
+TDD is genuinely valuable because bugs can affect:
+
+- transactions
+- subscriptions
+- customer data
+- external APIs
+
+---
+
+# Recommended mindset while learning Vitest
+
+Don’t try to test everything.
+
+Start by testing:
+
+- pure functions
+- validation
+- business rules
+- composables
+- stores
+- API wrappers
+
+Avoid obsessing over:
+
+- 100% coverage
+- trivial tests
+- testing framework internals
+
+Good tests are:
+
+- meaningful
+- readable
+- stable
+- fast
+- behavior-focused
