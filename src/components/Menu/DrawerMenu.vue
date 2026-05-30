@@ -3,6 +3,7 @@
 import { computed } from "vue";
 import IconLogin from "../icons/IconLogin.vue";
 import IconDashboard from "../icons/IconDashboard.vue";
+import IconHome from "../icons/IconHome.vue";
 import IconProjects from "../icons/IconProjects.vue";
 import IconDevelopers from "../icons/IconDevelopers.vue";
 import IconLayers from "../icons/IconLayers.vue";
@@ -23,6 +24,11 @@ const sidebarWidth = computed(() => (props.toggleMenu ? "!w-75 px-4 left-0" : "l
 // const
 const navItems = [
   {
+    label: "Home",
+    icon: IconHome,
+    route: "/",
+  },
+  {
     label: "Dashboard",
     icon: IconDashboard,
     route: "/dashboard",
@@ -41,7 +47,7 @@ const navItems = [
     label:
       "laksdnklaskldasdlkaskdklasdasdalsdklasdkalskdmkasmlkdmaklsmdklamskldmaklmkldaskldmklasmkl",
     icon: IconLayers,
-    route: "/dashboard",
+    route: "/",
   },
 ];
 </script>

@@ -1,5 +1,5 @@
 export type Priority = "High" | "Low" | "Medium" | "Critical" | "NONE";
-export type HoldStatus = "PAUSED" | "PENDING APPROVAL" | "SCRAPPED" | "NONE";
+export type HoldStatus = "PAUSED" | "PENDING APPROVAL" | "NONE";
 
 export interface Project {
   id: number;

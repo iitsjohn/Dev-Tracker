@@ -2,6 +2,8 @@
 
 <template>
   <div>
-    <h1>Developers</h1>
+    <h1>Dashboard</h1>
   </div>
 </template>
+
+<style scoped></style>

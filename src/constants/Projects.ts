@@ -150,12 +150,6 @@ export const OnHoldProjectList: OnHoldProject[] = [
     id: 3,
     name: "Onhold Project 3",
     description: ["Onhold project description 3A"],
-    status: "SCRAPPED",
-  },
-  {
-    id: 4,
-    name: "Onhold Project 4",
-    description: ["Onhold project description 4A", "Onhold project description 4B"],
     status: "NONE",
   },
 ];
