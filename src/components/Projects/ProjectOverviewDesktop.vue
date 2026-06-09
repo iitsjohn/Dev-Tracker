@@ -5,9 +5,18 @@ import CardTitle from "./CardTitle.vue";
 import ProjectCard from "./ProjectCard.vue";
 import UpcomingCard from "./UpcomingCard.vue";
 import OnHoldCard from "./OnHoldCard.vue";
+
+import { useAddProject } from "@/composables/useAddProject";
 </script>
 
 <template>
+  <button
+    class="border-c3c6d7 text-191c1e hover:bg-c3c6d7/10 ml-auto rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200"
+    @click="useAddProject().fnAddProject(projectList)"
+  >
+    Add Project
+  </button>
+
   <section class="hidden w-full grid-cols-3 gap-3 lg:grid xl:gap-6">
     <div class="space-y-4">
       <CardTitle status="ONGOING" color="004ac6" :count="projectList.length" />

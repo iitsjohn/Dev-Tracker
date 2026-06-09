@@ -6,6 +6,7 @@ import ProjectsSection from "@/components/Home/ProjectsSection.vue";
 
 <template>
   <main>
+    {{ test }}
     <HeroSection />
     <TeamSection />
     <ProjectsSection />

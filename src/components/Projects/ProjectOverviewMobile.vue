@@ -30,7 +30,7 @@ const tabs = ref<TabDetails[]>([
   {
     name: "ONHOLD",
     color: "943700",
-    count: 3,
+    count: OnHoldProjectList.length,
   },
 ]);
 
@@ -69,20 +69,20 @@ const handleTabChange = (tab: Tab) => {
     </div>
 
     <div v-if="activeTab === 'ONGOING'" class="space-y-4">
-      <ProjectCard v-for="project in projectList" :key="project.id" :project="project" />
+      <ProjectCard v-for="projects in projectList" :key="projects.id" :project="projects" />
     </div>
     <div v-if="activeTab === 'UPCOMING'" class="space-y-4">
       <UpcomingCard
-        v-for="upcomingProject in UpcomingProjectList"
-        :key="upcomingProject.id"
-        :project="upcomingProject"
+        v-for="upcomingProjects in UpcomingProjectList"
+        :key="upcomingProjects.id"
+        :project="upcomingProjects"
       />
     </div>
     <div v-if="activeTab === 'ONHOLD'" class="space-y-4">
       <OnHoldCard
-        v-for="onHoldProject in OnHoldProjectList"
-        :key="onHoldProject.id"
-        :project="onHoldProject"
+        v-for="onHoldProjects in OnHoldProjectList"
+        :key="onHoldProjects.id"
+        :project="onHoldProjects"
       />
     </div>
   </section>
