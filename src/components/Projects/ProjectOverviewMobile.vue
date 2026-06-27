@@ -5,6 +5,7 @@ import { projectList, UpcomingProjectList, OnHoldProjectList } from "@/constants
 import ProjectCard from "@/components/Projects/ProjectCard.vue";
 import UpcomingCard from "./UpcomingCard.vue";
 import OnHoldCard from "./OnHoldCard.vue";
+import AddProjectModal from "./AddProjectModal.vue";
 
 // types
 type Tab = "ONGOING" | "UPCOMING" | "ONHOLD";
@@ -69,6 +70,7 @@ const handleTabChange = (tab: Tab) => {
     </div>
 
     <div v-if="activeTab === 'ONGOING'" class="space-y-4">
+      <AddProjectModal />
       <ProjectCard v-for="projects in projectList" :key="projects.id" :project="projects" />
     </div>
     <div v-if="activeTab === 'UPCOMING'" class="space-y-4">

@@ -5,22 +5,35 @@ import CardTitle from "./CardTitle.vue";
 import ProjectCard from "./ProjectCard.vue";
 import UpcomingCard from "./UpcomingCard.vue";
 import OnHoldCard from "./OnHoldCard.vue";
+import AddProjectModal from "./AddProjectModal.vue";
+import { computed, onMounted } from "vue";
+import { useStorage } from "@vueuse/core";
 
-import { useAddProject } from "@/composables/useAddProject";
+// ref
+const storedProjects = useStorage("stored-projects", { ...projectList });
+const activeProjectsList = computed(() => {
+  if (storedProjects) return projectList;
+
+  return storedProjects;
+});
+
+console.log(activeProjectsList);
+
+onMounted(() => {
+  // useStorage("my-store", { test: projectList });
+  // console.log("onMounted");
+});
 </script>
 
 <template>
-  <button
-    class="border-c3c6d7 text-191c1e hover:bg-c3c6d7/10 ml-auto rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200"
-    @click="useAddProject().fnAddProject(projectList)"
-  >
-    Add Project
-  </button>
-
   <section class="hidden w-full grid-cols-3 gap-3 lg:grid xl:gap-6">
     <div class="space-y-4">
-      <CardTitle status="ONGOING" color="004ac6" :count="projectList.length" />
-      <ProjectCard v-for="project in projectList" :key="project.id" :project="project" />
+      <div class="flex items-center justify-between gap-4">
+        <CardTitle status="ONGOING" color="004ac6" :count="activeProjectsList.length" />
+        <AddProjectModal />
+      </div>
+
+      <ProjectCard v-for="project in activeProjectsList" :key="project.id" :project="project" />
     </div>
 
     <div class="space-y-4">

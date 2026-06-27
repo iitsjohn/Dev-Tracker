@@ -2,7 +2,7 @@
 // imports
 import IconPing from "../icons/IconPing.vue";
 import DeveloperCard from "./DeveloperCard.vue";
-import type { DevStatus } from "@/types/devs";
+import type { DevStatus } from "@/types/devs.ts";
 
 // data
 const activeDevelopers: DevStatus[] = [

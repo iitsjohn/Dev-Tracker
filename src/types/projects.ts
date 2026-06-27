@@ -29,3 +29,11 @@ export interface OnHoldProject {
   description?: string[] | [];
   status: HoldStatus;
 }
+
+export interface ProjectForm {
+  name: string;
+  description: string;
+  startDate: Date | null;
+  endDate: Date | null;
+  devs: string[];
+}

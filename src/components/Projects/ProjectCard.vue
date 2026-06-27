@@ -1,8 +1,7 @@
 <script setup lang="ts">
 // imports
 import ProgressBar from "@/components/Projects/ProgressBar.vue";
-import Menu from "primevue/menu";
-import { ref } from "vue";
+import UpdateProjectModal from "@/components/Projects/UpdateProjectModal.vue";
 import type { Project } from "@/types/projects";
 
 // props
@@ -12,33 +11,14 @@ const props = defineProps<{
 
 // ref / const
 const MAX_VISIBLE_DEVS = 2;
-const menu = ref<InstanceType<typeof Menu> | null>();
-
-const items = ref([
-  {
-    label: "Edit",
-    icon: "pi pi-refresh",
-    command: () => fnEdit(props.project.id, props.project.name),
-  },
-]);
-
-// functions
-const fnEdit = (id: number, name: string) => {
-  console.log("Edit project:", id, name);
-};
-
-const toggle = (event: Event) => {
-  menu.value?.toggle(event);
-};
 </script>
 
 <template>
   <div
-    class="border-primary-100/20 hover:border-primary-100 cursor-pointer space-y-4 rounded-xl border-2 bg-white p-4 duration-200 xl:p-6"
+    class="border-primary-100/20 xl:p-vc6 hover:border-primary-100 cursor-pointer space-y-4 rounded-xl border-2 bg-white p-4 duration-200 xl:p-6 xl:pt-6"
   >
     <div class="flex w-full items-center">
       <div class="mr-auto flex items-center gap-3">
-        <!-- <img src="@/assets/svg/gear.svg" class="bg-primary-100/10 size-9 rounded-lg p-2" /> -->
         <h3 class="text-191c1e text-lg font-bold xl:text-xl">{{ props.project.name }}</h3>
       </div>
 
@@ -46,14 +26,7 @@ const toggle = (event: Event) => {
         {{ props.project.priority }}
       </p>
 
-      <div class="card flex justify-end">
-        <img
-          src="/src/assets/svg/kebab.svg"
-          class="hover:bg-primary-100/10 block size-5.5 w-fit rounded-full duration-150 ease-in-out"
-          @click="toggle"
-        />
-        <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
-      </div>
+      <UpdateProjectModal :project="props.project" />
     </div>
 
     <div class="space-y-2">
