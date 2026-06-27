@@ -5,7 +5,7 @@ import IconLogin from "../icons/IconLogin.vue";
 import IconDashboard from "../icons/IconDashboard.vue";
 import IconHome from "../icons/IconHome.vue";
 import IconProjects from "../icons/IconProjects.vue";
-import IconDevelopers from "../icons/IconDevelopers.vue";
+import IconTeam from "../icons/IconTeam.vue";
 import IconLayers from "../icons/IconLayers.vue";
 
 // props
@@ -40,7 +40,7 @@ const navItems = [
   },
   {
     label: "Developers",
-    icon: IconDevelopers,
+    icon: IconTeam,
     route: "/developers",
   },
   {
