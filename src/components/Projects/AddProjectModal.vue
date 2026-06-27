@@ -45,7 +45,8 @@ const form = ref<ProjectForm>({
 const fnAddProject = () => {
   try {
     const storedProjects = useStorage("stored-projects", []);
-    storedProjects.value.push(form.value);
+    // TO DO: Fix form payload error
+    // storedProjects.value.push(form.value);
     // useAddProject().fnAddProject(form.value);
     // visible.value = false;
   } catch (error: unknown) {
